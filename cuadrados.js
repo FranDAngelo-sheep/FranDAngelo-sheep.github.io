@@ -4,6 +4,8 @@ ANCHO CUADRADO
 
 let anchocuadros = 38;
 
+
+
 class cuadros{
       
   constructor(pX,pY,direc/*,paleta*/){
@@ -11,13 +13,20 @@ class cuadros{
         this.y = pY;
         this.direc = direc;
         this.vel = 5;
-        /*paleta = paleta;*/
+        this.paleta = [
+      color(300, 65, 100),  
+      color(350, 65, 40),        
+      color(240, 65, 100),  
+      color(270, 65, 100)   
+    ];
+
   }
   dibujar(){
     push();
     translate(50,50);
     noStroke();
-    fill(0,0,(random(0,50)));
+    let c = random(this.paleta)
+    fill(c);
     square(this.x,this.y,anchocuadros);
     this.movimiento(this.direc);
     pop();
@@ -31,6 +40,8 @@ class cuadros{
       this.x += 1;
     }
   }
+      
+}
 
 
 
