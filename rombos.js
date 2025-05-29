@@ -4,12 +4,7 @@ class rombos{
         this.x = pX;
         this.y = pY;
         this.ancho = 20;
-        this.paleta = [
-      color(300, 65, 100),  
-      color(350, 65, 40),        
-      color(240, 65, 100),  
-      color(270, 65, 100)   
-    ];
+        this.paleta = miPaleta;
         
   }
   dibujar(){
