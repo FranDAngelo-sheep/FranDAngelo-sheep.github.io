@@ -4,7 +4,7 @@ class rombos{
       this.x = pX;
       this.y = pY;
       this.ancho = 30;
-      this.cambioColor= map(mouseX,0,width,0,200);
+      this.cambioColor= map(amp,AMP_MIN,AMP_MAX,0,200);
       
       this.paleta = [
       color(this.cambioColor+160, 65, 80),  
