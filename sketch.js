@@ -1,19 +1,56 @@
 let mic;
 let cuadro = []
-let amp;
+let amp = 0.01;
 
 // variables de CONFIGURACION
 
 let AMP_MIN = 0.001;
-let AMP_MAX = 0.03;
-
+let AMP_MAX = 0.1;
+let audioContext;
 /*SETUP///////////////////////////////////////////////////////////////////////////////////////////*/
 
 function setup() {
   createCanvas(600, 600);
   colorMode(HSB, 360, 100,100);
- mic = new p5.AudioIn(); 
-  mic.start(); 
+ audioContext = getAudioContext();
+  mic = new p5.AudioIn(); // crear un nuevo objeto de tipo AudioIn
+  mic.start(); // inicializo el audio incluyencto la función de analisis de frecuencia
+
+  userStartAudio();
+
+}
+
+
+/*DRAW/////////////////////////////////////////////////////////*/
+
+function draw() {
+  background(0)
+
+  //amp = mic.getLevel();
+if (mic) {
+  amp = mic.getLevel();
+  console.log(amp);
+}
+
+  frameRate(3)
+
+
+  let cambioLugar;
+  cambioLugar= map(mouseY,0,height,0,240);
+
+  cuadros1(cambioLugar);
+  
+  cuadros2(cambioLugar);
+  
+  rombo(); 
+
+
+/*LOS MARQUITOS, SE PORTAN MUY BIEN Y NO DAN PROBLEMAS*/
+  marcos(41,8,96,150);
+  marcos(165,2,83,105);
+  fill(255);
+ // console.log( "Amplitud: " + nfc(amp, 3));
+  
 
 }
 
@@ -66,33 +103,4 @@ function rombo(){
 
     }
   }
-}
-
-/*DRAW///////////////////////////////////////////////////////////////////////////////////////////*/
-
-function draw() {
-  background(0)
-
-  amp = mic.getLevel();
-
-  frameRate(3)
-
-
-  let cambioLugar;
-  cambioLugar= map(mouseY,0,height,0,240);
-
-  cuadros1(cambioLugar);
-  
-  cuadros2(cambioLugar);
-  
-  rombo(); 
-
-
-/*LOS MARQUITOS, SE PORTAN MUY BIEN Y NO DAN PROBLEMAS*/
-  marcos(41,8,96,150);
-  marcos(165,2,83,105);
-  fill(255);
-  let texto = "Amplitud: " + nfc(amp, 3);
-  text(texto, 50, 50);
-
 }
