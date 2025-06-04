@@ -1,14 +1,20 @@
-
-
 let mic;
+let cuadro = []
+let amp;
+
+// variables de CONFIGURACION
+
+let AMP_MIN = 0.001;
+let AMP_MAX = 0.03;
 
 /*SETUP///////////////////////////////////////////////////////////////////////////////////////////*/
 
 function setup() {
   createCanvas(600, 600);
   colorMode(HSB, 360, 100,100);
-  mic = new p5.AudioIn();
-  mic.start();
+ mic = new p5.AudioIn(); 
+  mic.start(); 
+
 }
 
 
@@ -28,8 +34,6 @@ function marcos(color,saturacion,brillo,grosor){
 /*FUNCION DE LOS CUADRADOS, HORIZONTALES Y DESPUES VERTICALES////////////////////////////////////*/
 
 function cuadros1(modificador){
-    let cuadro = []
-
     for (let x1 = 0; x1 < anchocuadros*16; x1 += anchocuadros) {
     for (let y1 = 0; y1 < anchocuadros*8; y1 += anchocuadros*2) {
       cuadro[x1] = new cuadros(x1-modificador, y1);
@@ -40,8 +44,6 @@ function cuadros1(modificador){
 }
 
 function cuadros2(modificador){
-  let cuadro = []
-  
     for (let x2 = anchocuadros*7; x2 > anchocuadros*-16; x2 -= anchocuadros) {
     for (let y2 = anchocuadros; y2 < anchocuadros*8; y2 += anchocuadros*2) {
       cuadro[x2] = new cuadros(x2+modificador, y2);
@@ -69,8 +71,11 @@ function rombo(){
 /*DRAW///////////////////////////////////////////////////////////////////////////////////////////*/
 
 function draw() {
+  background(0)
 
-frameRate(2)
+  amp = mic.getLevel();
+
+  frameRate(3)
 
 
   let cambioLugar;
@@ -86,5 +91,8 @@ frameRate(2)
 /*LOS MARQUITOS, SE PORTAN MUY BIEN Y NO DAN PROBLEMAS*/
   marcos(41,8,96,150);
   marcos(165,2,83,105);
+  fill(255);
+  let texto = "Amplitud: " + nfc(amp, 3);
+  text(texto, 50, 50);
 
 }
