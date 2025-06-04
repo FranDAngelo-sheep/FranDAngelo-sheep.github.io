@@ -10,7 +10,7 @@ class cuadros{
       this.x = pX;
       this.y = pY;
       this.cambioColor= map(mouseX,0,width,0,200);
-      
+
       this.paleta =  [
       color(this.cambioColor+160, 65, 80),  
       color(this.cambioColor+120, 65, 50),        
@@ -31,7 +31,6 @@ class cuadros{
 
   colorRandom(){
     var c = random(this.paleta)
-   
     return c;
   }
 }
