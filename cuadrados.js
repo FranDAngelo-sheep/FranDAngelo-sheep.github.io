@@ -4,32 +4,34 @@ ANCHO CUADRADO
 
 let anchocuadros = 57;
 
-
-
 class cuadros{
       
   constructor(pX,pY){
-        this.x = pX;
-        this.y = pY;
-        this.paleta = miPaleta;
-      ;
+      this.x = pX;
+      this.y = pY;
+      this.cambioColor= map(mouseX,0,width,0,200);
+      
+      this.paleta =  [
+      color(this.cambioColor+160, 65, 80),  
+      color(this.cambioColor+120, 65, 50),        
+      color(this.cambioColor+80, 65, 80),  
+      color(this.cambioColor+40, 65, 70)];
 
+      this.colorFinal = this.colorRandom();
   }
+
   dibujar(){
     push();
     translate(75,75);
     noStroke();
-    this.colorRandom();
+    fill(this.colorFinal);
     square(this.x,this.y,anchocuadros);
     pop();
   }
 
   colorRandom(){
-    
- 
-    let c = random(this.paleta);
-    fill(c);
-
- 
+    var c = random(this.paleta)
+   
+    return c;
   }
 }
