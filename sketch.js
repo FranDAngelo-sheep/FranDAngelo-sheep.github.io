@@ -1,10 +1,11 @@
-let miPaleta=[];
+
 
 let mic;
 
 function setup() {
   createCanvas(600, 600);
   colorMode(HSB, 360, 100,100);
+   
 
   /*mic = new p5.AudioIn();
   mic.start();*/
@@ -40,23 +41,15 @@ frameRate(2)
   background(0);
 
 /*PALETA DE COLORES, POR AHORA CAMBIA SEGUN EL MOUSEX*/
-let cambioColor;
-let cambioLuz;
 
-  cambioColor= map(mouseX,0,width,0,200);
-  cambioLuz= map(mouseY,0,height,0,240);
-  miPaleta=[
-      color(cambioColor+160, 65, 80),  
-      color(cambioColor+120, 65, 50),        
-      color(cambioColor+80, 65, 80),  
-      color(cambioColor+40, 65, 70)    
-    ];
+  let cambioLugar;
+  cambioLugar= map(mouseY,0,height,0,240);
 
 /*DISEÑO DE LOS CUADROS Y ROMBOS*/  
 
   for (let x1 = 0; x1 < anchocuadros*16; x1 += anchocuadros) {
     for (let y1 = 0; y1 < anchocuadros*8; y1 += anchocuadros*2) {
-      cuadro[x1] = new cuadros(x1-cambioLuz, y1);
+      cuadro[x1] = new cuadros(x1-cambioLugar, y1);
       cuadro[x1].dibujar();
     
     }
@@ -64,7 +57,7 @@ let cambioLuz;
 
     for (let x2 = anchocuadros*7; x2 > anchocuadros*-16; x2 -= anchocuadros) {
     for (let y2 = anchocuadros; y2 < anchocuadros*8; y2 += anchocuadros*2) {
-      cuadro[x2] = new cuadros(x2+cambioLuz, y2);
+      cuadro[x2] = new cuadros(x2+cambioLugar, y2);
       cuadro[x2].dibujar();
       
     }
