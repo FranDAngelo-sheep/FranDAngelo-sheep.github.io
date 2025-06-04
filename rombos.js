@@ -5,11 +5,13 @@ class rombos{
       this.y = pY;
       this.ancho = 30;
       this.cambioColor= map(mouseX,0,width,0,200);
+      
       this.paleta = [
       color(this.cambioColor+160, 65, 80),  
       color(this.cambioColor+120, 65, 50),        
       color(this.cambioColor+80, 65, 80),  
       color(this.cambioColor+40, 65, 70)];
+
       this.colorFinal = this.colorRandom();
   }
   dibujar(){
