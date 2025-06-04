@@ -1,12 +1,18 @@
 let mic;
 let cuadro = []
 let amp = 0.01;
+let cambioColorGlobal;
+let paletaCuadros, paletaRombos;
+let coloresCuadros = []; // Almacenará los colores asignados a cada cuadrado
+let coloresRombos = [];  // Almacenará los colores asignados a cada rombo
+
 
 // variables de CONFIGURACION
 
 let AMP_MIN = 0.001;
 let AMP_MAX = 0.1;
 let audioContext;
+
 /*SETUP///////////////////////////////////////////////////////////////////////////////////////////*/
 
 function setup() {
@@ -18,6 +24,43 @@ function setup() {
 
   userStartAudio();
 
+  cambioColorGlobal= map(amp,AMP_MIN,AMP_MAX,0,200);
+ 
+  
+  // Creamos las paletas de colores fijas
+  paletaCuadros = [
+    color(cambioColorGlobal+160, 65, 80),  
+    color(cambioColorGlobal+120, 65, 50),        
+    color(cambioColorGlobal+80, 65, 80),  
+    color(cambioColorGlobal+40, 65, 70)
+  ];
+  
+  paletaRombos = [
+    color(cambioColorGlobal+160, 65, 80),  
+    color(cambioColorGlobal+120, 65, 50),        
+    color(cambioColorGlobal+80, 65, 80),  
+    color(cambioColorGlobal+40, 65, 70)
+  ];
+  
+  // Pre-asignamos los colores para todos los cuadrados
+  for (let x1 = 0; x1 < anchocuadros*16; x1 += anchocuadros) {
+    for (let y1 = 0; y1 < anchocuadros*8; y1 += anchocuadros*2) {
+      coloresCuadros.push(random(paletaCuadros));
+    }
+  }
+  
+  for (let x2 = anchocuadros*7; x2 > anchocuadros*-16; x2 -= anchocuadros) {
+    for (let y2 = anchocuadros; y2 < anchocuadros*8; y2 += anchocuadros*2) {
+      coloresCuadros.push(random(paletaCuadros));
+    }
+  }
+  
+  // Pre-asignamos los colores para todos los rombos
+  for (let x = anchocuadros-anchocuadros/3; x < anchocuadros*8; x += anchocuadros*2) {
+    for (let y = anchocuadros-anchocuadros/3; y < anchocuadros*8; y += anchocuadros*2) {
+      coloresRombos.push(random([0, 100, random(paletaRombos)]));
+    }
+  }
 }
 
 
@@ -32,8 +75,8 @@ if (mic) {
   console.log(amp);
 }
 
-  frameRate(3)
-
+  // Calculamos el cambio de color solo una vez al inicio
+ // cambioColorGlobal= map(amp,AMP_MIN,AMP_MAX,0,200);
 
   let cambioLugar;
   cambioLugar= map(mouseY,0,height,0,240);
@@ -49,8 +92,6 @@ if (mic) {
   marcos(41,8,96,150);
   marcos(165,2,83,105);
   fill(255);
- // console.log( "Amplitud: " + nfc(amp, 3));
-  
 
 }
 
@@ -70,37 +111,36 @@ function marcos(color,saturacion,brillo,grosor){
 
 /*FUNCION DE LOS CUADRADOS, HORIZONTALES Y DESPUES VERTICALES////////////////////////////////////*/
 
-function cuadros1(modificador){
-    for (let x1 = 0; x1 < anchocuadros*16; x1 += anchocuadros) {
+function cuadros1(modificador) {
+  let index = 0;
+  for (let x1 = 0; x1 < anchocuadros*16; x1 += anchocuadros) {
     for (let y1 = 0; y1 < anchocuadros*8; y1 += anchocuadros*2) {
-      cuadro[x1] = new cuadros(x1-modificador, y1);
-      cuadro[x1].dibujar();
-    
+      const cuadro = new cuadros(x1-modificador, y1, coloresCuadros[index++]);
+      cuadro.dibujar();
     }
   }
 }
 
-function cuadros2(modificador){
-    for (let x2 = anchocuadros*7; x2 > anchocuadros*-16; x2 -= anchocuadros) {
+function cuadros2(modificador) {
+  let index = Math.floor(anchocuadros*16/anchocuadros) * Math.floor(anchocuadros*8/(anchocuadros*2));
+  for (let x2 = anchocuadros*7; x2 > anchocuadros*-16; x2 -= anchocuadros) {
     for (let y2 = anchocuadros; y2 < anchocuadros*8; y2 += anchocuadros*2) {
-      cuadro[x2] = new cuadros(x2+modificador, y2);
-      cuadro[x2].dibujar();
-      
+      const cuadro = new cuadros(x2+modificador, y2, coloresCuadros[index++]);
+      cuadro.dibujar();
     }
   }
 }
 
 /*FUNCION DE LOS ROMBOS/////////////////////////////////////////////////////////////////////////*/
 
-function rombo(){
-  let rombo = []
-
+function rombo() {
+  let index = 0;
   for (let x = anchocuadros-anchocuadros/3; x < anchocuadros*8; x += anchocuadros*2) {
     for (let y = anchocuadros-anchocuadros/3; y < anchocuadros*8; y += anchocuadros*2) {
-  
-      rombo[x] = new rombos(x, y);
-      rombo[x].dibujar();
-
+      const rombo = new rombos(x, y, coloresRombos[index++]);
+      rombo.dibujar();
     }
   }
 }
+
+
