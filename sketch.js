@@ -1,13 +1,21 @@
 let mic;
-let cuadro = []
 let amp = 0.01;
-let cambioColorGlobal;
-let paletaCuadros, paletaRombos;
-let coloresCuadros = []; // Almacenará los colores asignados a cada cuadrado
-let coloresRombos = [];  // Almacenará los colores asignados a cada rombo
+
+//Cambia el tamaño de la grilla
+
+let anchocuadros = 57;
+
+// variables de color y modificacion
 
 
-// variables de CONFIGURACION
+let cambioColorGlobal; //hace que los cuadrados y rombos cambien de color y ligeramente de brillo
+let cambioLugar; //modifica el como se mueven los cuadrados
+let saturacionRombos = []; //selecciona que rombos son blancos, negros o de color
+let coloresCuadros = []; //almacena los colores asignados a cada cuadrado
+let coloresRombos = [];  //almacena los colores asignados a cada rombo
+
+
+// variables de configuracion
 
 let AMP_MIN = 0.001;
 let AMP_MAX = 0.1;
@@ -18,30 +26,32 @@ let audioContext;
 function setup() {
   createCanvas(600, 600);
   colorMode(HSB, 360, 100,100);
- audioContext = getAudioContext();
+  audioContext = getAudioContext();
   mic = new p5.AudioIn(); // crear un nuevo objeto de tipo AudioIn
   mic.start(); // inicializo el audio incluyencto la función de analisis de frecuencia
 
   userStartAudio();
 
-  cambioColorGlobal= map(amp,AMP_MIN,AMP_MAX,0,200);
+ let paletaCuadros, paletaRombos; 
  
   
   // Creamos las paletas de colores fijas
   paletaCuadros = [
-    color(cambioColorGlobal+160, 65, 80),  
-    color(cambioColorGlobal+120, 65, 50),        
-    color(cambioColorGlobal+80, 65, 80),  
-    color(cambioColorGlobal+40, 65, 70)
+    160,  
+    120,        
+    80,  
+    40
   ];
   
   paletaRombos = [
-    color(cambioColorGlobal+160, 65, 80),  
-    color(cambioColorGlobal+120, 65, 50),        
-    color(cambioColorGlobal+80, 65, 80),  
-    color(cambioColorGlobal+40, 65, 70)
+    160,  
+    120,        
+    80,  
+    40
   ];
   
+  
+
   // Pre-asignamos los colores para todos los cuadrados
   for (let x1 = 0; x1 < anchocuadros*16; x1 += anchocuadros) {
     for (let y1 = 0; y1 < anchocuadros*8; y1 += anchocuadros*2) {
@@ -56,13 +66,18 @@ function setup() {
   }
   
   // Pre-asignamos los colores para todos los rombos
-  for (let x = anchocuadros-anchocuadros/3; x < anchocuadros*8; x += anchocuadros*2) {
-    for (let y = anchocuadros-anchocuadros/3; y < anchocuadros*8; y += anchocuadros*2) {
-      coloresRombos.push(random([0, 100, random(paletaRombos)]));
+  for (let x = anchocuadros-anchocuadros/3; x < anchocuadros*12; x += anchocuadros*2) {
+    for (let y = anchocuadros-anchocuadros/3; y < anchocuadros*12; y += anchocuadros*2) {
+      coloresRombos.push(random((paletaRombos)));
     }
   }
-}
 
+  for (let x = anchocuadros-anchocuadros/3; x < anchocuadros*12; x += anchocuadros*2) {
+    for (let y = anchocuadros-anchocuadros/3; y < anchocuadros*12; y += anchocuadros*2) {
+      saturacionRombos.push(random([0, 1, 2]));
+    } 
+  }
+}
 
 /*DRAW/////////////////////////////////////////////////////////*/
 
@@ -74,11 +89,9 @@ if (mic) {
   amp = mic.getLevel();
   console.log(amp);
 }
-
-  // Calculamos el cambio de color solo una vez al inicio
  // cambioColorGlobal= map(amp,AMP_MIN,AMP_MAX,0,200);
 
-  let cambioLugar;
+  cambioColorGlobal= map(mouseX,0,width,0,200); 
   cambioLugar= map(mouseY,0,height,0,240);
 
   cuadros1(cambioLugar);
@@ -137,7 +150,7 @@ function rombo() {
   let index = 0;
   for (let x = anchocuadros-anchocuadros/3; x < anchocuadros*8; x += anchocuadros*2) {
     for (let y = anchocuadros-anchocuadros/3; y < anchocuadros*8; y += anchocuadros*2) {
-      const rombo = new rombos(x, y, coloresRombos[index++]);
+      const rombo = new rombos(x, y, coloresRombos[index++], saturacionRombos[index++]);
       rombo.dibujar();
     }
   }
