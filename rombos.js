@@ -19,7 +19,7 @@ class rombos{
       this.brillo = 100
     } else if(this.valor == 2){
       this.saturacion = 65
-      this.brillo = this.colorFinal/2+cambioColorGlobal/2
+      this.brillo = 10+this.colorFinal/2+cambioColorGlobal/3
     }
     translate(64,94);
     noStroke();
