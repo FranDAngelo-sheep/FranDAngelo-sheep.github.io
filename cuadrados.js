@@ -10,7 +10,7 @@ class cuadros{
     push();
     translate(75,75);
     noStroke();
-    fill(this.colorFinal+cambioColorGlobal,65,this.colorFinal/2+cambioColorGlobal/2);
+    fill(this.colorFinal+cambioColorGlobal,65,10+this.colorFinal/2+cambioColorGlobal/3);
     square(this.x,this.y,anchocuadros);
     pop();
   }
