@@ -1,9 +1,3 @@
-/*/////////////////////
-ANCHO CUADRADO
-//////////////////////*/
-
-let anchocuadros = 57;
-
 class cuadros{
       
   constructor(pX,pY,pColor){
@@ -16,7 +10,7 @@ class cuadros{
     push();
     translate(75,75);
     noStroke();
-    fill(this.colorFinal);
+    fill(this.colorFinal+cambioColorGlobal,65,this.colorFinal/2+cambioColorGlobal/2);
     square(this.x,this.y,anchocuadros);
     pop();
   }
