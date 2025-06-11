@@ -4,11 +4,12 @@ class rombos{
       this.x = pX;
       this.y = pY;
       this.valor = sColor;
-      this.mod = cambioLugar/20;
+      this.mod = cambioLugar/50; //aumento la division porque se va a la chucha
       this.ancho = 30+this.mod;
       this.colorFinal = pColor;
-      this.saturacion
-      this.brillo
+      this.saturacion=0;
+      this.brillo=0;
+     
   }
   dibujar(){
     push();
@@ -22,14 +23,21 @@ class rombos{
       this.saturacion = 65
       this.brillo = 10+this.colorFinal/2+cambioColorGlobal/3
     }
-    translate(64,94);
+    //mapeo la distancia que recorre el mouseY y te devuelve un angulo pi
+     let angulo = map(mouseY,0,height,0,PI);
+     //hago que el 0,0 este en el centro de cada rombo
+    translate(64 + this.x + this.ancho, 94 + this.y);
+    //ROTAN LOS ROMBOSS  
+    rotate(angulo);
+        
     noStroke();
     fill(this.colorFinal+cambioColorGlobal,this.saturacion,this.brillo);
     quad(
-      this.x-this.mod,this.y,
-      this.x+this.ancho-this.mod,this.y-this.ancho,
-      this.x+this.ancho*2-this.mod,this.y,
-      this.x+this.ancho-this.mod,this.y+this.ancho);
+     -this.ancho - this.mod, 0,                 // izquierda
+    0, -this.ancho - this.mod,                 // arriba
+    this.ancho + this.mod, 0,                  // derecha
+   0, this.ancho + this.mod                   // abajo
+    );
     pop();
   }
 
