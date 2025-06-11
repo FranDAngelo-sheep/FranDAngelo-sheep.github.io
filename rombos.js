@@ -4,7 +4,8 @@ class rombos{
       this.x = pX;
       this.y = pY;
       this.valor = sColor;
-      this.ancho = 30;
+      this.mod = cambioLugar/20;
+      this.ancho = 30+this.mod;
       this.colorFinal = pColor;
       this.saturacion
       this.brillo
@@ -25,10 +26,10 @@ class rombos{
     noStroke();
     fill(this.colorFinal+cambioColorGlobal,this.saturacion,this.brillo);
     quad(
-      this.x,this.y,
-      this.x+this.ancho,this.y-this.ancho,
-      this.x+this.ancho*2,this.y,
-      this.x+this.ancho,this.y+this.ancho);
+      this.x-this.mod,this.y,
+      this.x+this.ancho-this.mod,this.y-this.ancho,
+      this.x+this.ancho*2-this.mod,this.y,
+      this.x+this.ancho-this.mod,this.y+this.ancho);
     pop();
   }
 
