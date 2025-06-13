@@ -92,7 +92,7 @@ if (mic) {
  // cambioColorGlobal= map(amp,AMP_MIN,AMP_MAX,0,200);
 
   cambioColorGlobal= map(mouseX,0,width,0,200); 
-  cambioLugar=  map(amp,AMP_MIN,AMP_MAX,0,PI);
+  cambioLugar=  map(mouseY,0,height,0,200);
 
   cuadros1(cambioLugar);
   
