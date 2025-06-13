@@ -24,7 +24,7 @@ class rombos{
       this.brillo = 10+this.colorFinal/2+cambioColorGlobal/3
     }
     //mapeo la sicion del mouseY en el height y te devuelve un angulo pi
-     let angulo = map(amp,AMP_MIN,AMP_MAX,0,PI);
+     let angulo = map(mouseY,0,height,0,PI);
      //hago que el 0,0 este en el centro de cada rombo
     translate(64 + this.x + this.ancho, 94 + this.y);
     //ROTAN LOS ROMBOSS  
